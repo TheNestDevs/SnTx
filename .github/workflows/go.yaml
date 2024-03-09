@@ -20,5 +20,5 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go }}
-      - run: go run main.go
-        working-directory: api
+      # - run: go run cmd/main.go
+      #   working-directory: api
