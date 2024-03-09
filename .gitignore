@@ -1,3 +1,5 @@
+### NodeJs
+
 # Logs
 logs
 *.log
@@ -128,3 +130,15 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+### GO
+
+# PKL
+config.pkl
+
+# JetBrains
+.idea
+
+# Misc
+.env
+bin/
