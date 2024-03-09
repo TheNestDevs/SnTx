@@ -1,0 +1,8 @@
+# PKL
+internal/config/config.pkl
+
+# JetBrains
+.idea
+
+# Misc
+.env
