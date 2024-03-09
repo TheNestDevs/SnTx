@@ -1,1 +1,3 @@
-# sntx
+# SnTx
+
+![SnTx](./assets/SnTx.png)
