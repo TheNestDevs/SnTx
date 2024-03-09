@@ -1,13 +1,17 @@
 {
-    "name": "sntx",
-    "scripts": {
-        "dev": "pnpm run \"/^dev:.*/\"",
-        "dev:api": "cd api && go run cmd/main.go",
-        "dev:app": "cd app && pnpm run dev"
-    },
-    "author": {
-        "name": "TheNestDevs",
-        "url": "https://github.com/TheNestDevs"
-    },
-    "packageManager": "pnpm@8.15.4"
+  "name": "sntx",
+  "scripts": {
+    "dev": "pnpm run \"/^dev:.*/\"",
+    "dev:api": "cd api && go run cmd/main.go",
+    "dev:app": "cd app && pnpm run dev"
+  },
+  "author": {
+    "name": "TheNestDevs",
+    "url": "https://github.com/TheNestDevs"
+  },
+  "packageManager": "pnpm@8.15.4",
+  "workspaces": [
+    "api",
+    "app"
+  ]
 }
