@@ -1,0 +1,10 @@
+@go.Package{name = "github.com/TheNestDevs/SnTx/api/internal/gen/appconfig"}
+
+module nestdevs.sntx.AppConfig
+
+import "package://pkg.pkl-lang.org/pkl-go/pkl.golang@0.5.3#/go.pkl"
+
+name: String = "SnTx"
+version: String(matches(Regex(#"(\d\.\d\.\d)"#)))= "0.0.1"
+
+port: String(!isEmpty)

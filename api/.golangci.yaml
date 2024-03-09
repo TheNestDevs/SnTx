@@ -1,0 +1,26 @@
+run:
+  concurrency: 3
+  timeout: 2m
+  tests: false
+  print-resources-usage: true
+
+  skip-dirs:
+    - template
+    - .idea
+
+  skip-files:
+    - Makefile
+    - Dockerfile
+    - .env.example
+    - .env
+    - .air.toml
+
+linters:
+  enable:
+    - errcheck
+    - unparam
+    - unused
+    - structcheck
+    - gochecknoglobals
+    - deadcode
+    - gochecknoinits
