@@ -2,7 +2,7 @@
   "name": "sntx",
   "scripts": {
     "dev": "pnpm run \"/^dev:.*/\"",
-    "dev:api": "cd api && go run cmd/main.go",
+    "dev:api": "cd api && make watch",
     "dev:app": "cd app && pnpm run dev"
   },
   "author": {
