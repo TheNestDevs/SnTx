@@ -1,0 +1,19 @@
+name: Setup Node Environment
+description: Prepare and install everything for nodejs repo
+
+runs:
+    using: composite
+    steps:
+        - uses: pnpm/action-setup@v2
+
+        - name: Setup Node.js
+          uses: actions/setup-node@v3
+          with:
+              cache: pnpm
+              node-version: 20
+              registry-url: https://registry.npmjs.org/
+
+        - name: Install dependencies
+          shell: bash
+          run: pnpm i
+          working-directory: app
