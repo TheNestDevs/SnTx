@@ -5,7 +5,6 @@ runs:
     using: composite
     steps:
         - uses: pnpm/action-setup@v2
-          working-directory: app
 
         - name: Setup Node.js
           uses: actions/setup-node@v3
@@ -16,5 +15,4 @@ runs:
 
         - name: Install dependencies
           shell: bash
-          run: pnpm i
-          working-directory: app
+          run: cd app && pnpm i

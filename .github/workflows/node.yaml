@@ -19,5 +19,4 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Build UI
-        run: pnpm build
-        working-directory: app
+        run: cd app && pnpm build
