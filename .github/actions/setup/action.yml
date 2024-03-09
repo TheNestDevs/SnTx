@@ -5,6 +5,7 @@ runs:
     using: composite
     steps:
         - uses: pnpm/action-setup@v2
+          working-directory: app
 
         - name: Setup Node.js
           uses: actions/setup-node@v3
