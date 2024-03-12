@@ -15,6 +15,7 @@ func NewHub() *Hub {
 	return &Hub{
 		Rooms:     make(map[string]*Room),
 		Broadcast: make(chan *Message),
+		NewClient: make(chan *Client),
 	}
 }
 
@@ -29,6 +30,14 @@ func (h *Hub) Run() {
 					Topic:   newClient.Topic,
 					Clients: make(map[string]*Client),
 				}
+
+				h.Rooms[newClient.Topic].Clients[newClient.Id] = newClient
+
+				//if _, ok := h.Rooms[newClient.Topic].Clients[newClient.Id]; !ok {
+				//	h.Rooms[newClient.Topic].Clients[newClient.Id] = newClient
+				//} else {
+				//	h.Rooms[newClient.Topic].Clients[newClient.Id] = newClient
+				//}
 			} else {
 				h.Rooms[newClient.Topic].Clients[newClient.Id] = newClient
 			}
@@ -42,5 +51,13 @@ func (h *Hub) SendToRoom(room string, message *Message) {
 		if client.Id != message.ClientID {
 			client.Conn.WriteJSON(message)
 		}
+	}
+}
+
+func (h *Hub) RemoveClient(client *Client) {
+	delete(h.Rooms[client.Topic].Clients, client.Id)
+
+	if len(h.Rooms[client.Topic].Clients) == 0 {
+		delete(h.Rooms, client.Topic)
 	}
 }

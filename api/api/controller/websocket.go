@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
@@ -31,13 +32,22 @@ func WebsocketRoute(hub *domain.Hub) fiber.Handler {
 
 		hub.NewClient <- &client
 
+		defer func() {
+			hub.RemoveClient(&client)
+			_ = conn.Close()
+		}()
+
 		for {
+
 			_, payLoad, _ := conn.ReadMessage()
 
 			_ = json.Unmarshal(payLoad, &msg)
 
-			// sending data to go routine
+			fmt.Println(msg)
+
+			// broadcasting message to all other clients in the same room
 			hub.Broadcast <- &msg
 		}
+
 	})
 }
