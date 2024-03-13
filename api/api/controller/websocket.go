@@ -1,37 +1,52 @@
 package controller
 
 import (
+	"encoding/json"
+
 	"github.com/gofiber/contrib/websocket"
+	"github.com/gofiber/fiber/v2"
 
 	"github.com/TheNestDevs/SnTx/api/internal/domain"
 )
 
-var (
-	Server domain.Server
-)
+func WebsocketRoute(hub *domain.Hub) fiber.Handler {
+	return websocket.New(func(conn *websocket.Conn) {
+		var msg domain.Message
 
-func WebsocketRoute(conn *websocket.Conn) {
-	id := conn.Params("id")
-	if id == "" {
-		_ = conn.Close()
-	}
+		id := conn.Params("id")
+		if id == "" {
+			_ = conn.Close()
+		}
 
-	topic := conn.Query("topic")
-	if topic == "" {
-		_ = conn.Close()
-	}
+		topic := conn.Query("topic")
+		if topic == "" {
+			_ = conn.Close()
+		}
 
-	client := domain.Client{
-		Id:    id,
-		Topic: topic,
-		Conn:  conn,
-	}
+		client := domain.Client{
+			Id:    id,
+			Topic: topic,
+			Conn:  conn,
+		}
 
-	for {
-		_, payLoad, _ := conn.ReadMessage()
+		hub.NewClient <- &client
 
-		// sending data to go routine
-		domain.Cli <- client
-		domain.PayLoad <- payLoad
-	}
+		defer func() {
+			hub.RemoveClient(&client)
+			_ = conn.Close()
+		}()
+
+		for {
+			messageType, payLoad, _ := conn.ReadMessage()
+
+			_ = json.Unmarshal(payLoad, &msg)
+
+			// broadcasting message to all other clients in the same room
+			if messageType == 1 { // checking if the message is a text type message
+				hub.Broadcast <- &msg
+			} else {
+				break
+			}
+		}
+	})
 }
