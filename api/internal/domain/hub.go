@@ -30,14 +30,7 @@ func (h *Hub) Run() {
 					Topic:   newClient.Topic,
 					Clients: make(map[string]*Client),
 				}
-
 				h.Rooms[newClient.Topic].Clients[newClient.Id] = newClient
-
-				//if _, ok := h.Rooms[newClient.Topic].Clients[newClient.Id]; !ok {
-				//	h.Rooms[newClient.Topic].Clients[newClient.Id] = newClient
-				//} else {
-				//	h.Rooms[newClient.Topic].Clients[newClient.Id] = newClient
-				//}
 			} else {
 				h.Rooms[newClient.Topic].Clients[newClient.Id] = newClient
 			}

@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
@@ -38,16 +37,16 @@ func WebsocketRoute(hub *domain.Hub) fiber.Handler {
 		}()
 
 		for {
-
-			_, payLoad, _ := conn.ReadMessage()
+			messageType, payLoad, _ := conn.ReadMessage()
 
 			_ = json.Unmarshal(payLoad, &msg)
 
-			fmt.Println(msg)
-
 			// broadcasting message to all other clients in the same room
-			hub.Broadcast <- &msg
+			if messageType == 1 { // checking if the message is a text type message
+				hub.Broadcast <- &msg
+			} else {
+				break
+			}
 		}
-
 	})
 }
