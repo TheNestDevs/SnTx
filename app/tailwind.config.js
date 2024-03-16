@@ -19,7 +19,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        noto: ["Noto Sans", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

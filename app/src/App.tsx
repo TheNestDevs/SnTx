@@ -1,10 +1,13 @@
 import "./App.css";
+import Blur from "./components/atoms/blur";
+import Header from "./components/molecules/header";
 
 function App() {
   return (
-    <div>
-      <div className="w-full h-36 flex flex-col justify-center font-noto text-5xl font-semibold text-center mx-auto">
-        SnTx
+    <div className="w-[100vw]">
+      <Blur />
+      <div className="sm:mx-20 mx-6 sm:mt-14 mt-6 font-poppins">
+        <Header />
       </div>
     </div>
   );
